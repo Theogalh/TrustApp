@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+    Welcome on TrüstApp - FR Elune WoW Guild.<br><br>
+
+    {% if user %}
+    You are connected with : {{ user.username }} (It's not you ? Click here)<br>
+    {% endif %}
+
+    <div id="players">
+    <ul class="list-group"id="players_ul">
+        {% for player in players %}
+        <li class="list-group-item">{{ player.name }}  -  {{ player.ilvl }} - {{ player.role }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+{% endblock %}
