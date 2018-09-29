@@ -3,8 +3,8 @@
 
     Welcome on TrüstApp - FR Elune WoW Guild.<br><br>
 
-    {% if user %}
-    You are connected with : {{ user.username }} (It's not you ? Click here)<br>
+    {% if current_user %}
+    You are connected with : {{ current_user.username }}<br>
     {% endif %}
 
     <div id="players">
