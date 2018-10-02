@@ -17,3 +17,4 @@ class Config(object):
                                                                                                      POSTGRE['port'],
                                                                                                      POSTGRE['db'])
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    LOGGING_DIR = os.environ.get('LOGGING_DIR') or '/var/log/trustapp.log'

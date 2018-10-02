@@ -14,7 +14,7 @@ from datetime import datetime
 def index():
     players = [
         {
-            "name": "Théogalh",
+            "name": "Theogalh",
             "ilvl": 368,
             "role": "tank"
         },
