@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     admin = db.Column(db.Boolean, default=False)
     last_seen = db.Column(db.DateTime, default=datetime.now)
     about_me = db.Column(db.String(140))
+    lists = db.relationship('List', backref='owner', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)

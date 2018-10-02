@@ -21,5 +21,5 @@ class List(db.Model):
 
     def refresh(self):
         self.last_update = datetime.now()
-        # TODO Parcourir les characters, et les mettre a jour.
-        db.session.commit()
+        for char in self.characters:
+            char.refresh()

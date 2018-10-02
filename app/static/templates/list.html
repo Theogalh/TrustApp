@@ -1,0 +1,46 @@
+{% include "base.html" %}
+
+{% block content %}
+    <form action="{{ url_for("list") }}" method="post">
+        <p>
+            Add List :<br>
+        </p>
+        {{ formList.name.label }}<br>
+        {{ formList.name(size=32) }}<br>
+        {% for error in formList.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <p>{{ formList.submit() }}</p>
+     </form>
+    {% for list in current_user.lists %}
+        <h1> List {{ list.name }}</h1>
+        {% for character in list.characters %}
+            {% include "_character.html" %}
+        {% endfor %}
+    <br>
+    <form action="{{ url_for("list", listname=list.name) }}" method="post">
+        <p>
+            Add Character :<br>
+        </p>
+        {{ formChar.name.label }}<br>
+        {{ formChar.name(size=32) }}<br>
+        {% for error in formChar.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <p>
+            {{ formChar.server.label }}<br>
+            {{ formChar.server(size=64) }}<br>
+            {% for error in formChar.server.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ formChar.region.label }}<br>
+            {{ formChar.region }}<br>
+            {% for error in formChar.region.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        <p>{{ formChar.submit() }}</p>
+     </form>
+    {% endfor %}
+{% endblock %}

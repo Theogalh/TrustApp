@@ -4,6 +4,7 @@ from .login import login
 from .logout import logout
 from .register import register
 from .user import user
+from .list import list
 from flask_login import login_required, current_user
 from datetime import datetime
 
@@ -12,25 +13,7 @@ from datetime import datetime
 @app.route('/index')
 @login_required
 def index():
-    players = [
-        {
-            "name": "Theogalh",
-            "ilvl": 368,
-            "role": "tank"
-        },
-        {
-            "name": "Geoffrey",
-            "ilvl": 377,
-            "role": "Heal"
-        },
-        {
-            "name": "Magnus",
-            "ilvl": 364,
-            "role": "Range"
-        },
-
-    ]
-    return render_template('index.html', title='Home', players=players)
+    return render_template('index.html', title='Home')
 
 
 @app.before_request

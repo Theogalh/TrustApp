@@ -9,8 +9,11 @@
 
     <div id="players">
     <ul class="list-group"id="players_ul">
-        {% for player in players %}
-        <li class="list-group-item">{{ player.name }}  -  {{ player.ilvl }} - {{ player.role }}</li>
+        {% for list in current_user.lists %}
+            <h1>{{ list.name }}</h1>
+            {% for character in list.characters %}
+                {% include '_character.html' %}
+            {% endfor %}
         {% endfor %}
     </ul>
     </div>
