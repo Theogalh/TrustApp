@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
-if not app.debug:
+if app.debug:
     file_handler = RotatingFileHandler(app.config['LOGGING_DIR'], maxBytes=10240,
                                        backupCount=10)
     file_handler.setFormatter(logging.Formatter(
