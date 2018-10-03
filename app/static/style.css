@@ -1,3 +1,7 @@
 .black-bg {
     color:black;
 }
+
+body.bg {
+    background-color:#615192;
+}
