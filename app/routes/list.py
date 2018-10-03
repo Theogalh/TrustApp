@@ -5,6 +5,7 @@ from app.forms.list import ListCreateForm
 from app.forms.character import CharacterCreateForm
 from app.models.list import List
 from app.models.character import Character
+from werkzeug.urls import url_parse
 
 
 @app.route('/list', methods=["GET", "POST", "DELETE"], defaults={"listname": None})
@@ -38,7 +39,7 @@ def list(listname=None):
             else:
                 flash("Error, list didn't exist.")
         else:
-            list = List.query.filter_by(name=formList.name.data).first()
+            list = List.query.filter_by(name=formList.name.data, user_id=current_user.id).first()
             if not list:
                 list = List(name=formList.name.data, user_id=current_user.id)
                 db.session.add(list)
@@ -47,4 +48,18 @@ def list(listname=None):
                 flash("List create")
             else:
                 flash("List already exist")
+    elif request.method == "GET" and listname:
+        list = List.query.filter_by(name=listname, user_id=current_user.id).first()
+        char = Character.query.filter_by(name=request.args.get('charname'),
+                                         server=request.args.get('server'),
+                                         region=request.args.get('region')).first()
+        list.characters.remove(char)
+        db.session.commit()
+        flash("Char remove from list.")
+
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        return redirect(next_page)
+
     return render_template('list.html', formList=formList, formChar=formChar)

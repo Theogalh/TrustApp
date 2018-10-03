@@ -9,6 +9,7 @@ class CharacterCreateForm(FlaskForm):
     server = StringField("Server", validators=[DataRequired()])
     region = SelectField("Region", validators=[DataRequired()],
                          choices=[('EU', 'Europe'), ("KR", "Korea")])
+    spe = StringField("Specialisation")
     submit = SubmitField("Create Character")
 
 
