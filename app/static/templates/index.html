@@ -10,10 +10,7 @@
     <div id="players">
     <ul class="list-group"id="players_ul">
         {% for list in current_user.lists %}
-            <h1>{{ list.name }}</h1>
-            {% for character in list.characters %}
-                {% include '_character.html' %}
-            {% endfor %}
+            {% include '_list.html' %}
         {% endfor %}
     </ul>
     </div>

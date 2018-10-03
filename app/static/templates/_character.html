@@ -1,5 +1,12 @@
-    <table>
-        <tr valign="top">
-            <td>{{ character.name }} {{ character.region }} {{ character.server }} {{ character.ilvl }} {{ character.raiderio }}</td>
+        <tr style="background-color:{{ character.color }}">
+          <td class="black-bg">{{ character.classe }}</td>
+          <td class="black-bg">{{ character.name }}</td>
+          <td class="black-bg">{{ character.server }}</td>
+          <td class="black-bg">A AJOUTER</td>
+          <td class="black-bg">{{ character.ilvl }}</td>
+          <td class="black-bg">{{ character.raiderio }}</td>
+          <td class="black-bg"><a href="{{ character.armory_link }}">link</a></td>
+          <td class="black-bg"><a href="{{ character.raiderio_link }}">link</a></td>
+          <td class="black-bg">{{ character.last_update }}</td>
+          <td class="black-bg"><button> Delete</button></td>
         </tr>
-    </table>

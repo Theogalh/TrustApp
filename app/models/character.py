@@ -4,18 +4,33 @@ import datetime
 import requests
 
 CLASS = {
-    1: "Guerrier",
+    1: "Warrior",
     2: "Paladin",
-    3: "Chasseur",
-    4: "Voleur",
-    5: "Pretre",
-    6: "Chevalier de la mort",
-    7: "Chaman",
+    3: "Hunter",
+    4: "Rogue",
+    5: "Priest",
+    6: "Death Knight",
+    7: "Shaman",
     8: "Mage",
-    9: "Demoniste",
-    10: "Moine",
-    11: "Druide",
-    12: "Chasseur de demons"
+    9: "Warlock",
+    10: "Monk",
+    11: "Druid",
+    12: "Demon Hunter"
+}
+
+COLOR = {
+    1: "#C79C6E",
+    2: "#F58CBA",
+    3: "#ABD473",
+    4: "#FFF569",
+    5: "#FFFFFF",
+    6: "#C41F3B ",
+    7: "#0070DE",
+    8: "#40C7EB",
+    9: "#8787ED",
+    10: "#00FF96",
+    11: "#FF7D0A",
+    12: "#A330C9"
 }
 
 RACE = {
@@ -50,7 +65,6 @@ char_item = db.Table('char_item',
 
 class Character(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # TODO A voir a faire une relation ManyToMany
     lists = db.relationship("List",
                             secondary=list_char,
                             back_populates='characters',
@@ -63,11 +77,13 @@ class Character(db.Model):
     name = db.Column(db.String(64), index=True, unique=True)
     server = db.Column(db.String(64))
     region = db.Column(db.String(64))
-    armory_link = db.Column(db.String(128))
+    armory_link = db.Column(db.String(256))
     ilvl = db.Column(db.Integer, index=True)
     race = db.Column(db.String(64))
     classe = db.Column(db.String(64))
     raiderio = db.Column(db.Integer)
+    raiderio_link = db.Column(db.String(256))
+    color = db.Column(db.String(20))
     last_update = datetime.datetime.now()
 
     def __repr__(self):
@@ -82,7 +98,6 @@ class Character(db.Model):
             self.name,
             app.config["BNET_APIKEY"]
         )
-        print(url)
         r = requests.get(url + "&fields=items")
         if r.status_code != 200:
             return self.refresh(index+1)
@@ -90,6 +105,7 @@ class Character(db.Model):
         r = r.json()
         self.ilvl = int(r["items"]['averageItemLevelEquipped'])
         self.classe = CLASS[int(r["class"])]
+        self.color = COLOR[int(r["class"])]
         self.race = RACE[int(r["race"])]
         self.armory_link = "https://worldofwarcraft.com/fr-fr/character/{}/{}".format(
             self.server,
@@ -106,6 +122,7 @@ class Character(db.Model):
         else:
             r = r.json()
             self.raiderio = r["mythic_plus_scores"]["all"]
+            self.raiderio_link = r["profile_url"]
         self.last_update = datetime.datetime.now()
         db.session.commit()
         return 200

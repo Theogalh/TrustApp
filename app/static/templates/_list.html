@@ -1,0 +1,22 @@
+        <table class="table table-striped table-dark">
+            <h1>{{ list.name }}</h1>
+            <thead>
+                <tr>
+                  <th scope="col">Class</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Server</th>
+                  <th scope="col">Specialisation</th>
+                  <th scope="col">ilvl</th>
+                  <th scope="col">RaiderIO Score</th>
+                  <th scope="col">RaiderIO</th>
+                  <th scope="col">Armory</th>
+                  <th scope="col">Updated</th>
+                  <th scope="col">Delete</th>
+                </tr>
+            </thead>
+          <tbody>
+            {% for character in list.characters %}
+                    {% include '_character.html' %}
+            {% endfor %}
+          </tbody>
+        </table>
